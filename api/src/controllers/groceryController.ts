@@ -12,7 +12,7 @@ export const getGroceries: RequestHandler = async (req, res): Promise<void> => {
 
     res.json(groceryList);
   } catch (error) {
-    res.status(500).json({ error: "Error al leer los datos" });
+    res.status(500).json({ error: "Error reading data" });
   }
 };
 
@@ -26,7 +26,7 @@ export const updateGroceryStock: RequestHandler = async (
     const itemIndex = db.grocery.findIndex((item) => item.id === itemId);
 
     if (itemIndex === -1) {
-      res.status(404).json({ error: "Producto no encontrado" });
+      res.status(404).json({ error: "Product not found" });
       return;
     }
 
@@ -35,7 +35,7 @@ export const updateGroceryStock: RequestHandler = async (
 
     res.json(db.grocery[itemIndex]);
   } catch (error) {
-    res.status(500).json({ error: "Error al actualizar el producto" });
+    res.status(500).json({ error: "Error updating product" });
   }
 };
 
@@ -49,7 +49,7 @@ export const toggleFavorite = async (req: Request, res: Response):Promise<any> =
     const item = grocery.find((product) => product.id === id);
 
     if (!item) {
-      return res.status(404).json({ error: "Producto no encontrado" });
+      return res.status(404).json({ error: "Product not found" });
     }
 
     item.favorite = item.favorite === 1 ? 0 : 1;
@@ -58,9 +58,9 @@ export const toggleFavorite = async (req: Request, res: Response):Promise<any> =
 
     return res.status(200).json(item);
   } catch (error) {
-    console.error("Error al cambiar el valor de 'favorite':", error);
+    console.error("Error changing the value of 'favorite':", error);
     return res
       .status(500)
-      .json({ error: "Error al actualizar el valor de 'favorite'" });
+      .json({ error: "Error updating the value of 'favorite'" });
   }
 };

@@ -10,7 +10,7 @@ app.use(express.json());
 app.use("/grocery", groceryRoutes);
 
 app.listen(PORT, () => {
-  console.log(`Servidor corriendo en http://localhost:${PORT}`);
+  console.log(`Server running at http://localhost:${PORT}`);
 });
 
 export { app }

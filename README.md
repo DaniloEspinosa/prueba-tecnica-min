@@ -2,6 +2,10 @@
 
 ## Application structure
 
+* Project folder: Here is the API folder corresponding to the backend and the CLIENT folder corresponding to the frontend.
+
+- ### Frontend (CLIENT)
+
 * Interface Folder: Here all the interfaces which represent the main models of the applications are defined.
 
 * Components Folder: Here all the components which can be reused in the application are created.
@@ -10,20 +14,40 @@
 
 * Utilities Folder: This folder will be used to create validation functions, calculations functions, etc. They can be shared.
 
-* Context Folder: Here are the different contexts with the data shared between multiple components
+* Context Folder: Here are the different contexts with the data shared between multiple components.
 
-* hooks folder: In this folder go the different custom hooks
+* hooks folder: In this folder go the different custom hooks.
+
+- ### Backend (API)
+
+* Controller Folder: Contains the API controllers.
+
+* Interfaces Folder: Here all the interfaces which represent the main models of the applications are defined.
+
+* Routes folder: Here are the files that contain the routes.
+
+* Tests folder: Here you will find the tests and files needed to run them.
+
+* Utils folder: Contains support files for the other functions.
 
 
-## Technical implementation
 
-- I used the React library and typescript with Vite.
+
+## Technical implementation FRONT & BACK
+
+- I used the React library and typescript with Vite for the front end.
 - I used npm for dependency package management.
 - For the styles I used CSS as it is a relatively small project and currently allows me to nest to have a cleaner code.
 - I used Grid and flex to get an adaptive and responsive design.
 - I created some custom Hooks as controllers to separate them from the views.
 - I used context to have the data accessible in the different components.
-- The backend is simulated with json-server as the requirements of the task were.
+
+- For the backend I used nodejs and express with typescript.
+- I have used the file system to manipulate the db.json file and be able to use it as the database.
+- Creating a simple test to verify the fetch response.
+- Creating an endpoint to get articles from db.json.
+- Creating an endpoint using a query to filter favorites.
+- Creation of an endpoints to make changes to the article, stock and favorite.
 
 
 ## TODO
@@ -62,7 +86,7 @@ npm run start
 pnpm run start
 ```
 
-This will run the test API in `localhost:3000`
+This will run the API in `localhost:3000`
 
 ## Run the application
 
@@ -85,3 +109,4 @@ npm start
 # or
 pnpm start
 ```
+This will run the app in `localhost:5173`
