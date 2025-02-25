@@ -1,59 +1,85 @@
-import { createContext, useState } from "react";
-import { Product, ProductsContextType, ProductsProviderProps } from "../interfaces/ProductsInterfaces";
+import { createContext, useState, useEffect } from "react";
+import {
+  Product,
+  ProductsContextType,
+  ProductsProviderProps,
+} from "../interfaces/ProductsInterfaces";
+import { useFetch } from "../hooks/useFetch";
 
-export const ProductsContext = createContext<ProductsContextType | undefined>(undefined)
+export const ProductsContext = createContext<ProductsContextType | undefined>(
+  undefined
+);
 
 export function ProductsProviderWrapper({ children }: ProductsProviderProps) {
   const [products, setProducts] = useState<Product[]>([]);
+  const [favorites, setFavorites] = useState<Product[]>([]);
 
+  // Obtener productos y actualizar el estado
   const getProducts = async () => {
-    try {
-      const response = await fetch(`http://localhost:3000/grocery`);
-      if (!response.ok) {
-        throw new Error("Error fetching products");
-      }
-      const data = await response.json();
-      setProducts(data);
-    } catch (error) {
-      console.error(error);
-      setProducts([]);
-    }
+    const data = await useFetch("http://localhost:3000/grocery");
+    setProducts(data);
   };
 
-  const toggleFavorite = async (productId: string) => {
-    const productToUpdate = products.find((product) => product.id === productId);
-    if (!productToUpdate) return;
-  
-    const updatedFavorite = productToUpdate.favorite === 1 ? 0 : 1;
-  
+  // Obtener solo los productos favoritos
+  const getFavorites = async () => {
+    const data = await useFetch("http://localhost:3000/grocery?favorite=1");
+    setFavorites(data);
+  };
+
+  // Alternar el estado "favorite" de un producto
+  const toggleFavorite = async (id: string) => {
     try {
-      const response = await fetch(`http://localhost:3000/grocery/${productId}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ favorite: updatedFavorite }),
-      });
-  
-      if (!response.ok) {
-        throw new Error("Error updating favorite status");
-      }
-  
-      // Si la actualización fue exitosa, actualizamos el estado local
-      setProducts((prevProducts) =>
-        prevProducts.map((product) =>
-          product.id === productId ? { ...product, favorite: updatedFavorite } : product
-        )
+      const response = await fetch(
+        `http://localhost:3000/grocery/${id}/favorite`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
       );
+
+      if (response.ok) {
+        setProducts((prev) =>
+          prev.map((item) =>
+            item.id === id
+              ? { ...item, favorite: item.favorite === 1 ? 0 : 1 }
+              : item
+          )
+        );
+
+        // También actualizamos la lista de favoritos si es necesario
+        setFavorites((prev) =>
+          prev.map((item) =>
+            item.id === id
+              ? { ...item, favorite: item.favorite === 1 ? 0 : 1 }
+              : item
+          )
+        );
+      } else {
+        console.error("Error al actualizar el estado de favorito");
+      }
     } catch (error) {
-      console.error("Error updating favorite:", error);
+      console.error("Error en la solicitud PATCH:", error);
     }
   };
-  
 
+  useEffect(() => {
+    getProducts(); // Cargar los productos al inicio
+    getFavorites(); // Cargar los productos favoritos
+  }, []); // Solo se ejecuta una vez cuando el componente se monta
 
   return (
-    <ProductsContext.Provider value={{ products, setProducts, getProducts, toggleFavorite }}>
+    <ProductsContext.Provider
+      value={{
+        products,
+        favorites,
+        setProducts,
+        getProducts,
+        toggleFavorite,
+        getFavorites,
+      }}
+    >
       {children}
     </ProductsContext.Provider>
   );

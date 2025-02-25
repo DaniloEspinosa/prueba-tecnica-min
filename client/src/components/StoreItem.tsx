@@ -26,7 +26,7 @@ const StoreItem = (product: Product) => {
   return (
     <div className="card">
       <img src={product.image_url} alt={product.productName} />
-      <FaHeart onClick={() => toggleFavorite(product.id)} color={product.favorite === 1 ? "red" : "white"} className="icon-btn"/>
+      <FaHeart onClick={() => toggleFavorite(product.id)} color={Number(product.favorite) === 1 ? "red" : "white"} className="icon-btn"/>
       <div className="card-body">
         <div>
           <div>

@@ -1,10 +1,13 @@
 import { Route, Routes } from "react-router-dom";
+import Modal from "react-modal";
 import Store from "./pages/Store";
 import Navbar from "./components/Navbar";
 import Cart from "./components/Cart";
 import CartPage from "./pages/CartPage";
 import FavouritesPage from "./pages/FavouritesPage";
 import { ProductsProviderWrapper } from "./context/products.context";
+
+Modal.setAppElement("#root");
 
 function App() {
   return (

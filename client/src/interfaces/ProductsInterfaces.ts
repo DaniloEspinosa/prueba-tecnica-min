@@ -12,8 +12,10 @@ export interface Product {
 
 export interface ProductsContextType {
   products: Product[];
+  favorites: Product[];
   setProducts: React.Dispatch<React.SetStateAction<Product[]>>;
   getProducts: () => Promise<void>;
+  getFavorites: () => Promise<void>;
 }
 
 export interface ProductsProviderProps {
@@ -24,5 +26,5 @@ export interface ProductsContextType {
   products: Product[];
   setProducts: React.Dispatch<React.SetStateAction<Product[]>>;
   getProducts: () => Promise<void>;
-  toggleFavorite: (productId: string) => void
+  toggleFavorite: (productId: string) => void;
 }
