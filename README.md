@@ -36,13 +36,9 @@
 ## Before run the application
 
 - You must have node.js installed on your computer
-<<<<<<< HEAD
 
 
 - Go to the API folder
-=======
-- Go to the server-api folder
->>>>>>> 3f1d08a043c45f81512734b6555bebc81ff257d3
 
 - ### Install dependencies
 ```sh
@@ -53,13 +49,10 @@ npm install
 pnpm install
 ```
 
-<<<<<<< HEAD
 - ### Build
 ```sh
 tsc
 
-=======
->>>>>>> 3f1d08a043c45f81512734b6555bebc81ff257d3
 - ### Run the Rest API
 ```sh
 yarn start
