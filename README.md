@@ -86,18 +86,9 @@ pnpm install
 
 - ### Run App
 ```sh
-<<<<<<< HEAD
 yarn start
 # or
 npm start
 # or
 pnpm start
 ```
-=======
-yarn run dev
-# or
-npm run dev
-# or
-pnpm run dev
-```
->>>>>>> 3f1d08a043c45f81512734b6555bebc81ff257d3
